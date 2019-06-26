@@ -1,0 +1,60 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "Mastering vue.js",
+      "poster": "https://cdn-images-1.medium.com/max/1200/1*HgW1OQ8pYaV7dhcsRpKkxQ.png",
+      "desc": "Description Mastering Vue.js",
+      "author": "Gregg Pollack",
+      "publisher": "O'Reily",
+      "ISBN": "978-5-4461-1098-8",
+      "year": "2019",
+      "pages": "288",
+      "raiting": 0,
+      "review": "Отзыв тех кто прочитал",
+      "note": "Личные заметки по книге"
+    },
+    {
+      "id": 2,
+      "name": "Mastering vue.js",
+      "poster": "https://cdn-images-1.medium.com/max/1200/1*HgW1OQ8pYaV7dhcsRpKkxQ.png",
+      "desc": "Description Mastering Vue.js",
+      "author": "Gregg Pollack",
+      "publisher": "O'Reily",
+      "ISBN": "978-5-4461-1098-8",
+      "year": "2019",
+      "pages": "288",
+      "raiting": 0,
+      "review": "Отзыв тех кто прочитал",
+      "note": "Личные заметки по книге"
+    },
+    {
+      "id": 3,
+      "name": "Mastering vue.js",
+      "poster": "",
+      "desc": "Description Mastering Vue.js",
+      "author": "Gregg Pollack",
+      "publisher": "O'Reily",
+      "ISBN": "978-5-4461-1098-8",
+      "year": "2019",
+      "pages": "288",
+      "raiting": 0,
+      "review": "Отзыв тех кто прочитал",
+      "note": "Личные заметки по книге"
+    },
+    {
+      "id": 4,
+      "name": "Mastering vue.js",
+      "poster": "https://cdn-images-1.medium.com/max/1200/1*HgW1OQ8pYaV7dhcsRpKkxQ.png",
+      "desc": "Description Mastering Vue.js",
+      "author": "Gregg Pollack",
+      "publisher": "O'Reily",
+      "ISBN": "978-5-4461-1098-8",
+      "year": "2019",
+      "pages": "288",
+      "raiting": 0,
+      "review": "Отзыв тех кто прочитал",
+      "note": "Личные заметки по книге"
+    }
+  ]
+}
