@@ -1,5 +1,5 @@
 <template>
-  <router-link class="card-book-link" :to="{ name: 'book-show', params: { id: book.id } }">
+  <router-link class="card-book-link" :to="{ name: 'book-edit', params: { id: book.id } }">
     <div class="card card-book">
       <div class="card-book-poster">
         <div class="card-book-no_poster" v-if="!book.poster.length">681&nbsp;x&nbsp;681</div>
@@ -68,7 +68,7 @@ export default {
     &-poster {
       position: relative;
       max-width: 286px;
-      height: 300px;
+      height: 270px;
       background-color: #ccc;
       overflow: hidden;
       text-align: center;

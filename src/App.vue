@@ -2,9 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link :to="{ name: 'book-list' }">Главная</router-link>
-      <router-link :to="{ name: 'book-make' }">Добавить книгу</router-link>
+      <router-link :to="{ name: 'book-edit', params: { id: 'make' } }">Добавить книгу</router-link>
     </div>
-    <router-view/>
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 

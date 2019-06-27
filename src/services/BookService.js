@@ -17,6 +17,12 @@ export default {
     return apiClient.get("/books/" + id);
   },
   postBook(book) {
-    return apiClient.post("/book", book);
+    return apiClient.post("/books", book);
+  },
+  updateBook(book) {
+    return apiClient.put("/books/" + book.id, book);
+  },
+  removeBook(id) {
+    return apiClient.delete("/books/" + id);
   }
 };

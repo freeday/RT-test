@@ -1,8 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import BookMake from "./views/BookMake.vue";
+import BookFormEdit from "./views/BookFormEdit.vue";
 import BookList from "./views/BookList.vue";
-import BookShow from "./views/BookShow.vue";
 
 Vue.use(Router);
 
@@ -20,15 +19,15 @@ export default new Router({
       component: BookList
     },
     {
-      path: "/book/make",
-      name: "book-make",
-      component: BookMake
-    },
-    {
       path: "/book/:id",
-      name: "book-show",
-      component: BookShow,
+      name: "book-edit",
+      component: BookFormEdit,
       props: true
     }
   ]
+  // beforeRouteUpdate(to, from, next) {
+  //   console.log(to);
+  //   // react to route changes...
+  //   // don't forget to call next()
+  // }
 });

@@ -1,5 +1,5 @@
-   <template>
-  <div class="icon-wrapper">
+<template>
+  <div class="icon-wrapper" v-on="$listeners">
     <svg :class="['icon icon-' + color ]" :width="width" :height="height">
       <use v-bind="{'xlink:href':'/feather-sprite.svg#'+name}"></use>
     </svg>
