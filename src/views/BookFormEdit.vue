@@ -13,11 +13,7 @@
           v-if="state !== 'make'"
           v-text="'Удалить книгу'"
         ></BaseButton>
-        <div
-          v-for="(field, index) in fields"
-          :key="index"
-          class="form-field-control"
-        >
+        <div v-for="(field, index) in fields" :key="index" class="form-field-control">
           <div v-if="field.type === 'input'" class="form-field-input">
             <BaseInput
               :label="field.label"
@@ -27,11 +23,7 @@
               :disabled="state === 'default' ? true : false"
               :hasError="!!errors[field.name]"
             />
-            <div
-              class="error-message"
-              v-text="errors[field.name]"
-              v-show="!!errors[field.name]"
-            ></div>
+            <div class="error-message" v-text="errors[field.name]" v-show="!!errors[field.name]"></div>
           </div>
           <div v-else-if="field.type === 'star'" class="form-field-stars">
             <label v-text="field.label"></label>
@@ -58,11 +50,7 @@
               :disabled="state === 'default' ? true : false"
               :hasError="!!errors[field.name]"
             />
-            <div
-              class="error-message"
-              v-text="errors[field.name]"
-              v-show="!!errors[field.name]"
-            ></div>
+            <div class="error-message" v-text="errors[field.name]" v-show="!!errors[field.name]"></div>
           </div>
         </div>
       </form>
@@ -89,7 +77,8 @@ export default {
       raiting: 0,
       errors: {
         title: null,
-        desc: null
+        desc: null,
+        ISBN: null
       },
       actions: {
         default: "Редактировать книгу",
@@ -117,14 +106,14 @@ export default {
     };
   },
   created() {
-    if (this.id === "make") {
-      this.state = this.id;
-      this.$store.dispatch("makeBlankBook");
-    } else {
+    if (this.id) {
       this.state = "default";
       this.$store.dispatch("fetchBook", this.id).then(() => {
         this.raiting = this.book.raiting;
       });
+    } else {
+      this.state = "make";
+      this.$store.dispatch("makeBlankBook");
     }
   },
   computed: mapState(["book"]),
@@ -159,11 +148,24 @@ export default {
       }
     },
     simpleValidate(cb) {
-      if (this.book.title && this.book.desc && typeof cb === "function")
-        return cb();
-      debugger;
+      let hasError = false;
+      let fields = ["title", "desc", "ISBN"];
+
+      for (let i = 0; i < fields.length; i++) {
+        let field = fields[i];
+        if (this.book[field]) {
+          this.errors[field] = "";
+        } else {
+          hasError = true;
+        }
+      }
+
       if (!this.book.title) this.errors.title = "У книги должно быть название";
       if (!this.book.desc) this.errors.desc = "У книги должно быть описание";
+      if (!this.book.ISBN)
+        this.errors.ISBN = "У книги должнен быть паспорт издания - ISBN";
+
+      if (!hasError && typeof cb === "function") return cb();
     },
     updateBook() {
       this.$store.dispatch("updateBook", this.book).then(() => {
@@ -188,7 +190,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .form-action {
   max-width: 600px;

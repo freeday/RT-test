@@ -1,6 +1,9 @@
 <template>
-  <div class="book-list">
-    <BookCard v-for="book in books" :key="book.id" :book="book" />
+  <div>
+    <div class="book-list" v-if="books.length">
+      <BookCard v-for="book in books" :key="book.id" :book="book"/>
+    </div>
+    <h3 v-else>Вы ещё не создали ни одной книги, добавьте свою первую книгу</h3>
   </div>
 </template>
 
@@ -25,7 +28,7 @@ export default {
   margin: 0 auto;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: stretch; // Важная опция, применить для медиа запросов чтобы покрасивее было при перестроении карточек, чтобы они центровались а не прижимались к левому краю
+  justify-content: stretch;
   align-content: center;
   align-items: center;
 }

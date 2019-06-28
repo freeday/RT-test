@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import router from "./router";
 import BookService from "@/services/BookService.js";
 
 Vue.use(Vuex);
@@ -46,44 +47,39 @@ export default new Vuex.Store({
           commit("ADD_BOOK", book);
         })
         .catch(error => {
-          console.log("error:" + error);
+          router.push("/");
         });
     },
     fetchBooks({ commit }) {
-      return BookService.getBooks()
-        .then(res => {
-          commit("SET_BOOKS", res.data);
-        })
-        .catch(error => {
-          console.log("error:" + error);
-        });
+      return BookService.getBooks().then(res => {
+        commit("SET_BOOKS", res.data);
+        return res.data;
+      });
     },
     fetchBook({ commit, getters }, id) {
       let book = getters.getBookById(id);
       if (book) {
         commit("SET_BOOK", book);
+        return book;
       } else {
-        return BookService.getBook(id)
-          .then(res => {
-            commit("SET_BOOK", res.data);
-          })
-          .catch(error => {
-            console.log("error:", error);
-          });
+        return BookService.getBook(id).then(res => {
+          commit("SET_BOOK", res.data);
+          return res.data;
+        });
       }
     },
     updateBook({}, book) {
       return BookService.updateBook(book)
         .then(res => {})
         .catch(error => {
-          console.log("error:", error);
+          router.push("/");
         });
     },
     removeBook({}, book) {
       return BookService.removeBook(book.id)
         .then(res => {})
         .catch(error => {
-          console.log("error:", error);
+          router.push("/");
         });
     }
   },
