@@ -18,7 +18,7 @@
       "id": 2,
       "title": "Mastering vue.js",
       "poster": "https://cdn-images-1.medium.com/max/1200/1*HgW1OQ8pYaV7dhcsRpKkxQ.png",
-      "desc": "Description Mastering Vue.js",
+      "desc": "<script>alert('привет')</script>\n<script>console.log('xss')</script>",
       "author": "Gregg Pollack",
       "publisher": "O'Reily",
       "ISBN": "978-5-4461-1098-8",
@@ -55,6 +55,62 @@
       "raiting": 0,
       "review": "Отзыв тех кто прочитал",
       "note": "Личные заметки по книге"
+    },
+    {
+      "id": 7833017,
+      "name": "",
+      "poster": "",
+      "desc": "",
+      "author": "",
+      "publisher": "",
+      "ISBN": "",
+      "year": "",
+      "pages": "",
+      "raiting": 0,
+      "review": "",
+      "note": ""
+    },
+    {
+      "id": 4558829,
+      "name": "",
+      "poster": "",
+      "desc": "",
+      "author": "",
+      "publisher": "",
+      "ISBN": "",
+      "year": "",
+      "pages": "",
+      "raiting": 0,
+      "review": "",
+      "note": ""
+    },
+    {
+      "id": 290433,
+      "name": "",
+      "poster": "",
+      "desc": "\n\n",
+      "author": "",
+      "publisher": "",
+      "ISBN": "",
+      "year": "",
+      "pages": "",
+      "raiting": 0,
+      "review": "",
+      "note": ""
+    },
+    {
+      "id": 6802667,
+      "title": "rtyrty",
+      "poster": null,
+      "desc": "rtyrty",
+      "author": null,
+      "publisher": null,
+      "ISBN": null,
+      "year": null,
+      "pages": null,
+      "raiting": 0,
+      "review": null,
+      "note": null
     }
   ]
 }

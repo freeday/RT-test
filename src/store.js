@@ -27,17 +27,17 @@ export default new Vuex.Store({
     makeBlankBook({ commit }) {
       commit("SET_BOOK", {
         id: Math.floor(Math.random() * 10000000),
-        name: "",
-        poster: "",
-        desc: "",
-        author: "",
-        publisher: "",
-        ISBN: "",
-        year: "",
-        pages: "",
+        title: null,
+        poster: null,
+        desc: null,
+        author: null,
+        publisher: null,
+        ISBN: null,
+        year: null,
+        pages: null,
         raiting: 0,
-        review: "",
-        note: ""
+        review: null,
+        note: null
       });
     },
     makeBook({ commit }, book) {

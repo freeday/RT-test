@@ -1,7 +1,12 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <input :value="value" @input="updateValue" v-bind="$attrs">
+    <input
+      :class="[hasError ? 'error' : '']"
+      :value="value"
+      @input="updateValue"
+      v-bind="$attrs"
+    />
   </div>
 </template>
 
@@ -9,6 +14,7 @@
 export default {
   inheritAttrs: false,
   props: {
+    hasError: Boolean,
     label: {
       type: String,
       default: ""
@@ -28,16 +34,21 @@ input {
   height: 38px;
   box-sizing: border-box;
   padding: 10px;
+  margin: 0;
   border: 1px solid #ced4da;
   border-radius: 3px;
   font-weight: 300;
   font-size: 14px;
+  vertical-align: top;
   &:focus {
     border-color: #80bdff;
     outline: 0;
   }
   &:disabled {
     background-color: #e9ecef;
+  }
+  &.error {
+    border-color: #dc3545;
   }
 }
 label {

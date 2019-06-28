@@ -1,12 +1,16 @@
 <template>
   <div class="icon-wrapper" v-on="$listeners">
-    <svg :class="['icon icon-' + color ]" :width="width" :height="height">
-      <use v-bind="{'xlink:href':'/feather-sprite.svg#'+name}"></use>
+    <svg
+      :class="['icon icon-' + color + ' ' + cursor]"
+      :width="width"
+      :height="height"
+    >
+      <use v-bind="{ 'xlink:href': '/feather-sprite.svg#' + name }"></use>
     </svg>
   </div>
 </template>
-    
-    <script>
+
+<script>
 export default {
   name: "Icon",
   props: {
@@ -14,6 +18,10 @@ export default {
     color: {
       type: String,
       default: "gray"
+    },
+    cursor: {
+      type: String,
+      default: "default"
     },
     width: {
       type: [Number, String],
@@ -26,7 +34,7 @@ export default {
   }
 };
 </script>
-    
+
 <style scoped lang="scss">
 .icon {
   stroke-width: 2;
@@ -43,6 +51,9 @@ export default {
   }
   &-orange {
     fill: rgb(254, 213, 48);
+  }
+  &.pointer {
+    cursor: pointer;
   }
 }
 </style>

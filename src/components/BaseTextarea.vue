@@ -1,7 +1,12 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <textarea :value="value" @input="updateValue" v-bind="$attrs"></textarea>
+    <textarea
+      :class="[hasError ? 'error' : '']"
+      :value="value"
+      @input="updateValue"
+      v-bind="$attrs"
+    ></textarea>
   </div>
 </template>
 
@@ -9,6 +14,7 @@
 export default {
   inheritAttrs: false,
   props: {
+    hasError: Boolean,
     label: {
       type: String,
       default: ""
@@ -28,17 +34,22 @@ textarea {
   min-height: 70px;
   box-sizing: border-box;
   padding: 10px;
+  margin: 0;
   border: 1px solid #ced4da;
   resize: vertical;
   border-radius: 3px;
   font-weight: 300;
   font-size: 14px;
+  vertical-align: top;
   &:focus {
     border-color: #80bdff;
     outline: 0;
   }
   &:disabled {
     background-color: #e9ecef;
+  }
+  &.error {
+    border-color: #dc3545;
   }
 }
 label {

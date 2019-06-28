@@ -1,19 +1,28 @@
 <template>
-  <router-link class="card-book-link" :to="{ name: 'book-edit', params: { id: book.id } }">
+  <router-link
+    class="card-book-link"
+    :to="{ name: 'book-edit', params: { id: book.id } }"
+  >
     <div class="card card-book">
       <div class="card-book-poster">
-        <div class="card-book-no_poster" v-if="!book.poster.length">681&nbsp;x&nbsp;681</div>
-        <img v-else :src="book.poster" alt>
+        <div class="card-book-no_poster" v-if="!book.poster.length">
+          681&nbsp;x&nbsp;681
+        </div>
+        <img v-else :src="book.poster" alt />
       </div>
       <div class="card-book-body">
-        <div class="card-book-txt card-book-name">{{ book.name }}</div>
-        <div class="card-book-txt card-book-desc">{{ book.desc }}</div>
+        <div class="card-book-txt card-book-name" v-text="book.title"></div>
+        <div class="card-book-txt card-book-desc" v-text="book.desc"></div>
       </div>
       <div class="card-book-footer">
         <div class="card-book-txt">Raiting:</div>
         <div class="card-book-stars">
-          <BaseIcon name="star"/>
-          <div class="card-book-star"></div>
+          <BaseIcon
+            name="star"
+            v-for="n in 5"
+            :color="n <= book.raiting ? 'orange' : 'gray'"
+            :key="n"
+          />
         </div>
       </div>
     </div>
@@ -46,8 +55,7 @@ export default {
     color: #007bff;
     font-size: 14px;
     &-link {
-      // display: flex;
-      min-width: 256px;
+      width: 256px;
       margin: 0 10px 20px;
       order: 0;
       flex: 0 1 auto;
@@ -88,8 +96,18 @@ export default {
       background-color: rgba(0, 0, 0, 0.025);
     }
     &-name {
-      font-weight: bold;
+      height: 16px;
       margin-bottom: 10px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &-desc {
+      height: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     &-stars {
       margin-top: 10px;

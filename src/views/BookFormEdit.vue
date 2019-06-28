@@ -1,28 +1,42 @@
 <template>
   <div class="form-wrapper">
     <div class="form-action">
-      <form @submit.prevent @keyup.enter="whatAction('enter')">
+      <form @submit.prevent @key.enter="whatAction('enter')">
         <BaseButton
-          :buttonClass="event == 'edit' ? 'btn-simple' : 'btn-cucumber'"
-          @click="whatAction(event)"
-        >{{ actions[event] }}</BaseButton>
+          :buttonClass="state === 'default' ? 'btn-simple' : 'btn-cucumber'"
+          @click="whatAction(state)"
+          v-text="actions[state]"
+        ></BaseButton>
         <BaseButton
           :buttonClass="'btn-tomato'"
           @click="whatAction('remove')"
-          v-if="event !== 'make'"
-        >Удалить книгу</BaseButton>
-        <div v-for="(field, index) in fields" :key="index" class="form-field-input">
-          <BaseInput
-            v-if="field.type == 'input'"
-            :label="field.label"
-            name="field.name"
-            v-model="book[field.name]"
-            :placeholder="field.label"
-            :disabled="event =='edit' ? true : false"
-          />
-          <div v-else-if="field.type == 'star'" class="form-field-stars">
-            <label for>{{ field.label }}</label>
+          v-if="state !== 'make'"
+          v-text="'Удалить книгу'"
+        ></BaseButton>
+        <div
+          v-for="(field, index) in fields"
+          :key="index"
+          class="form-field-control"
+        >
+          <div v-if="field.type === 'input'" class="form-field-input">
+            <BaseInput
+              :label="field.label"
+              :name="field.name"
+              v-model="book[field.name]"
+              :placeholder="field.label"
+              :disabled="state === 'default' ? true : false"
+              :hasError="!!errors[field.name]"
+            />
+            <div
+              class="error-message"
+              v-text="errors[field.name]"
+              v-show="!!errors[field.name]"
+            ></div>
+          </div>
+          <div v-else-if="field.type === 'star'" class="form-field-stars">
+            <label v-text="field.label"></label>
             <BaseIcon
+              :cursor="state !== 'default' ? 'pointer' : state"
               name="star"
               v-for="n in 5"
               :color="n <= raiting ? 'orange' : 'gray'"
@@ -35,13 +49,20 @@
           </div>
           <div v-else-if="field.type == 'textarea'" class="form-field-textarea">
             <BaseTextarea
-              v-if="field.type == 'textarea'"
+              v-if="field.type === 'textarea'"
               :label="field.label"
               name="field.name"
               v-model="book[field.name]"
               :placeholder="field.label"
-              :disabled="event =='edit' ? true : false"
+              @keyup.enter.prevent
+              :disabled="state === 'default' ? true : false"
+              :hasError="!!errors[field.name]"
             />
+            <div
+              class="error-message"
+              v-text="errors[field.name]"
+              v-show="!!errors[field.name]"
+            ></div>
           </div>
         </div>
       </form>
@@ -64,10 +85,14 @@ export default {
   },
   data() {
     return {
-      event: "",
+      state: "default",
       raiting: 0,
+      errors: {
+        title: null,
+        desc: null
+      },
       actions: {
-        edit: "Редактировать книгу",
+        default: "Редактировать книгу",
         update: "Сохранить книгу",
         make: "Добавить книгу",
         remove: "Удалить книгу"
@@ -93,10 +118,10 @@ export default {
   },
   created() {
     if (this.id === "make") {
-      this.event = this.id;
+      this.state = this.id;
       this.$store.dispatch("makeBlankBook");
     } else {
-      this.event = "edit";
+      this.state = "default";
       this.$store.dispatch("fetchBook", this.id).then(() => {
         this.raiting = this.book.raiting;
       });
@@ -105,37 +130,59 @@ export default {
   computed: mapState(["book"]),
   methods: {
     mouseLeaveStars() {
-      if (this.event == "edit") return;
+      if (this.state == "default") return;
       this.raiting = this.book.raiting;
     },
     mouseOverStars(idx) {
-      if (this.event == "edit") return;
+      if (this.state == "default") return;
       this.raiting = idx;
     },
     setRaiting() {
       this.book.raiting = this.raiting;
     },
-    whatAction(event) {
-      if (event === "edit") {
-        this.editBook();
+    whatAction(state) {
+      if (this.state === "default" && state === "enter") return;
+      if ((state === "enter" && this.state === "make") || state === "make")
+        return this.simpleValidate(this.addBook);
+      if ((state === "enter" && this.state === "update") || state === "update")
+        return this.simpleValidate(this.updateBook);
+      if (state === "default") {
+        this.state = "update";
         return;
       }
-      if (event === "remove") {
-        this.$router.replace({ path: `/book/${this.book.id}` });
-      }
-      this.$store.dispatch(`${event}Book`, this.book).then(() => {
-        if (event === "make") {
-          this.$router.push({
-            name: "book-edit",
-            params: { id: this.book.id }
-          });
+      if (state === "remove") {
+        if (confirm("Хотите удалить эту книгу?")) {
+          this.removeBook();
+        } else {
+          return;
         }
-        if (event === "remove") return this.$router.push("/");
-        if (event === "update" || event === "enter") this.event = "edit";
+      }
+    },
+    simpleValidate(cb) {
+      if (this.book.title && this.book.desc && typeof cb === "function")
+        return cb();
+      debugger;
+      if (!this.book.title) this.errors.title = "У книги должно быть название";
+      if (!this.book.desc) this.errors.desc = "У книги должно быть описание";
+    },
+    updateBook() {
+      this.$store.dispatch("updateBook", this.book).then(() => {
+        this.state = "default";
       });
     },
-    editBook() {
-      this.event = "update";
+    addBook() {
+      this.$store.dispatch("makeBook", this.book).then(() => {
+        this.$router.push({
+          name: "book-edit",
+          params: { id: this.book.id }
+        });
+      });
+    },
+    removeBook() {
+      this.$router.replace({ path: `/book/${this.book.id}` });
+      this.$store.dispatch("removeBook", this.book).then(() => {
+        this.$router.push("/");
+      });
     }
   }
 };
@@ -150,9 +197,6 @@ export default {
   .btn {
     margin: 0 10px;
   }
-  .icon-wrapper {
-    cursor: pointer;
-  }
 }
 label {
   display: block;
@@ -164,9 +208,17 @@ label {
 .form-field-stars {
   text-align: left;
 }
+.form-field-control {
+  margin-top: 20px;
+}
 .form-field-input,
 .form-field-textarea {
-  margin-top: 20px;
   font-size: 14px;
+}
+.error-message {
+  margin-top: 5px;
+  text-align: left;
+  font-size: 12px;
+  color: #dc3545;
 }
 </style>
