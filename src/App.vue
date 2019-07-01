@@ -4,10 +4,9 @@
       <router-link :to="{ name: 'book-list' }">Главная</router-link>
       <router-link :to="{ name: 'book-make' }">Добавить книгу</router-link>
     </div>
-    <router-view :key="$route.fullPath"/>
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
-
 
 <script>
 import { mapState } from "vuex";

@@ -13,7 +13,11 @@
           v-if="state !== 'make'"
           v-text="'Удалить книгу'"
         ></BaseButton>
-        <div v-for="(field, index) in fields" :key="index" class="form-field-control">
+        <div
+          v-for="(field, index) in fields"
+          :key="index"
+          class="form-field-control"
+        >
           <div v-if="field.type === 'input'" class="form-field-input">
             <BaseInput
               :label="field.label"
@@ -23,7 +27,11 @@
               :disabled="state === 'default' ? true : false"
               :hasError="!!errors[field.name]"
             />
-            <div class="error-message" v-text="errors[field.name]" v-show="!!errors[field.name]"></div>
+            <div
+              class="error-message"
+              v-text="errors[field.name]"
+              v-show="!!errors[field.name]"
+            ></div>
           </div>
           <div v-else-if="field.type === 'star'" class="form-field-stars">
             <label v-text="field.label"></label>
@@ -50,7 +58,11 @@
               :disabled="state === 'default' ? true : false"
               :hasError="!!errors[field.name]"
             />
-            <div class="error-message" v-text="errors[field.name]" v-show="!!errors[field.name]"></div>
+            <div
+              class="error-message"
+              v-text="errors[field.name]"
+              v-show="!!errors[field.name]"
+            ></div>
           </div>
         </div>
       </form>

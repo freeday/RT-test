@@ -1,9 +1,14 @@
 <template>
-  <router-link class="card-book-link" :to="{ name: 'book-edit', params: { id: book.id } }">
+  <router-link
+    class="card-book-link"
+    :to="{ name: 'book-edit', params: { id: book.id } }"
+  >
     <div class="card card-book">
       <div class="card-book-poster">
-        <div class="card-book-no_poster" v-if="!book.poster">681&nbsp;x&nbsp;681</div>
-        <img v-else :src="book.poster">
+        <div class="card-book-no_poster" v-if="!book.poster">
+          681&nbsp;x&nbsp;681
+        </div>
+        <img v-else :src="book.poster" />
       </div>
       <div class="card-book-body">
         <div class="card-book-txt card-book-name" v-text="book.title"></div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="book-list" v-if="books.length">
-      <BookCard v-for="book in books" :key="book.id" :book="book"/>
+      <BookCard v-for="book in books" :key="book.id" :book="book" />
     </div>
     <h3 v-else>Вы ещё не создали ни одной книги, добавьте свою первую книгу</h3>
   </div>
