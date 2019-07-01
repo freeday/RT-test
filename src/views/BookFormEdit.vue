@@ -196,7 +196,7 @@ export default {
   min-width: 320px;
   margin: 0 auto;
   .btn {
-    margin: 0 10px;
+    margin: 0 8px;
   }
 }
 label {

@@ -1,18 +1,3 @@
 {
-  "books": [
-    {
-      "id": 3711925,
-      "title": "Vue Mastering",
-      "poster": null,
-      "desc": "Книга про Vue.js",
-      "author": null,
-      "publisher": null,
-      "ISBN": "123123d",
-      "year": null,
-      "pages": null,
-      "raiting": 5,
-      "review": null,
-      "note": null
-    }
-  ]
+  "books": []
 }
