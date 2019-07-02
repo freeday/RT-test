@@ -1,21 +1,25 @@
+// Modules
 const http = require("http");
 const fs = require("fs");
-const httpPort = 80;
 
-http
-  .createServer((req, res) => {
-    fs.readFile("./dist/index.html", "utf-8", (err, content) => {
-      if (err) {
-        console.log('We cannot open "index.htm" file.');
-      }
+// Server configuration
+const hostname = "92.53.91.207";
+const port = 3000;
 
-      res.writeHead(200, {
+// Render page
+fs.readFile("./dist/index.html", function(err, html) {
+  if (err) {
+    throw err;
+  }
+  const server = http
+    .createServer(function(request, response) {
+      response.writeHead(200, {
         "Content-Type": "text/html; charset=utf-8"
       });
-
-      res.end(content);
+      response.end(html);
+    })
+    .listen(port, hostname, () => {
+      // Console
+      console.log(`Server running at http://${hostname}:${port}/`);
     });
-  })
-  .listen(httpPort, () => {
-    console.log("Server listening on: http://localhost:%s", httpPort);
-  });
+});
