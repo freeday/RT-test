@@ -14,7 +14,7 @@ const port = 3000;
 server.use(middlewares);
 server.use(router);
 
-server.listen(3000, () => {
+server.listen(port, hostname, () => {
   console.log("JSON Server is running");
 });
 
